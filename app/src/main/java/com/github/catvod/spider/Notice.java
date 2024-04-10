@@ -25,6 +25,7 @@ import com.github.catvod.net.OkHttp;
 import com.github.catvod.net.OkHttpUtil;
 import com.github.catvod.ui.ScrollTextView;
 import com.github.catvod.utils.Utils;
+import java.security.SecureRandom;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -119,7 +120,7 @@ public class Notice extends Spider {
     private final Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            Random random = new Random();
+            Random random = new SecureRandom();
             view.setTextColor(Color.argb(255, random.nextInt(128), random.nextInt(128), random.nextInt(128)));
             updateColor();
         }
@@ -147,7 +148,7 @@ public class Notice extends Spider {
             HttpsURLConnection httpsconn;
             httpsconn = (HttpsURLConnection) url.openConnection();
 
-            if (url.getProtocol().toLowerCase().equals("https")) {
+            if ("https".equals(url.getProtocol().toLowerCase())) {
                 httpsconn.setHostnameVerifier(DO_NOT_VERIFY);
                 httpconn = httpsconn;
             } else {	//判断是https请求还是http请求
